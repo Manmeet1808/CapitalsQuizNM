@@ -41,6 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:background="@android:color/white"
-        app:headerLayout="@layout/nav_header"
+        app:headerLayout="@layout/nav_bar"
         app:menu="@menu/jobleads_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

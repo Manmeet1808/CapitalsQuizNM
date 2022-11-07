@@ -8,9 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.opencsv.CSVReader;
+
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -92,21 +93,25 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
                 AssetManager am = myContext.getAssets();
                 InputStream in_s = am.open("state_capitals.csv");
 
-                BufferedReader dataIO = new BufferedReader(new InputStreamReader(in_s));
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(in_s));
 
-                // read the CSV data
-                CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
-                String [] nextLine;
-                while( ( nextLine = reader.readNext() ) != null ) {
-                    ContentValues values = new ContentValues();
-                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, nextLine[0]);
-                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, nextLine[1] );
-                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, nextLine[2] );
-                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, nextLine[3] );
+                String nextLine = "";
+                try {
+                    while ((nextLine = buffer.readLine()) != null) {
+                        String[] columns = nextLine.split(",");
 
-                    long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
+                        ContentValues values = new ContentValues();
+                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, columns[0]);
+                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, columns[1] );
+                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, columns[2] );
+                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, columns[3] );
 
-                    Log.d( DEBUG_TAG, "Line: " + nextLine );
+                        long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
+
+                        Log.d( DEBUG_TAG, "Line: " + nextLine );
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 Log.e( DEBUG_TAG, e.toString() );

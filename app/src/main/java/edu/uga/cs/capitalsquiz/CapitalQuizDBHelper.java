@@ -115,8 +115,11 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    // We should override onUpgrade method, which will be used to upgrade the database if
-    // its version (DB_VERSION) has changed
+    //CHANGE UP COMMENT - FROM KOCHUT
+
+    //We should override onUpgrade method, which will be used to upgrade the database if
+    // its version (DB_VERSION) has changed.  This will be done automatically by Android
+    // if the version will be bumped up, as we modify the database schema.
     @Override
     public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_CITIES);

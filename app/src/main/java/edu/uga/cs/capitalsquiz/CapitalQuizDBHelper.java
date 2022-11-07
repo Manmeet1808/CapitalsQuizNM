@@ -3,22 +3,14 @@ package edu.uga.cs.capitalsquiz;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.FileReader;
 import com.opencsv.CSVReader;
 
-import androidx.annotation.Nullable;
-
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -85,42 +77,43 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         db.execSQL( CREATE_CITIES );
         db.execSQL( CREATE_QUIIZZES );
         Log.d( DEBUG_TAG, "Table " + TABLE_CITIES + " created" );
-        //new QuizDBPopulateTask().execute( db );
+        new addData().execute( db );
     }
 
     /**
-     * QuizDBPopulateTask is an AsyncTask that populates the initial database for the capitals table
+     * addData reads from the CSV file in the assets folder in order to populate two of
+     * the SQLite databases with the necessary information for the quiz
      */
-//    private class QuizDBPopulateTask extends AsyncTask<SQLiteDatabase, Void, SQLiteDatabase> {
-//
-//        @Override
-//        protected SQLiteDatabase doInBackground(SQLiteDatabase... sqLiteDatabases) {
-//            try {
-//                AssetManager am = myContext.getAssets();
-//                InputStream in_s = am.open("state_capitals.csv");
-//
-//                BufferedReader dataIO = new BufferedReader(new InputStreamReader(in_s));
-//
-//                // read the CSV data
-//                CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
-//                String [] nextLine;
-//                while( ( nextLine = dataIO.readLine() ) != null ) {
-//                    ContentValues values = new ContentValues();
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, nextLine[0]);
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, nextLine[1] );
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, nextLine[2] );
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, nextLine[3] );
-//
-//                    long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
-//
-//                    Log.d( DEBUG_TAG, "Line: " + nextLine );
-//                }
-//            } catch (Exception e) {
-//                Log.e( DEBUG_TAG, e.toString() );
-//            }
-//            return null;
-//        }
-//    }
+    private class addData extends AsyncTask<SQLiteDatabase, Void, SQLiteDatabase> {
+
+        @Override
+        protected SQLiteDatabase doInBackground(SQLiteDatabase... sqLiteDatabases) {
+            try {
+                AssetManager am = myContext.getAssets();
+                InputStream in_s = am.open("state_capitals.csv");
+
+                BufferedReader dataIO = new BufferedReader(new InputStreamReader(in_s));
+
+                // read the CSV data
+                CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
+                String [] nextLine;
+                while( ( nextLine = reader.readNext() ) != null ) {
+                    ContentValues values = new ContentValues();
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, nextLine[0]);
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, nextLine[1] );
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, nextLine[2] );
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, nextLine[3] );
+
+                    long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
+
+                    Log.d( DEBUG_TAG, "Line: " + nextLine );
+                }
+            } catch (Exception e) {
+                Log.e( DEBUG_TAG, e.toString() );
+            }
+            return null;
+        }
+    }
 
     // We should override onUpgrade method, which will be used to upgrade the database if
     // its version (DB_VERSION) has changed

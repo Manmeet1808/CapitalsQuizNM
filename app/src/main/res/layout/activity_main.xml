@@ -42,5 +42,5 @@
         android:layout_gravity="start"
         android:background="@android:color/white"
         app:headerLayout="@layout/nav_bar"
-        app:menu="@menu/jobleads_menu" />
+        app:menu="@menu/quizmenu" />
 </androidx.drawerlayout.widget.DrawerLayout>

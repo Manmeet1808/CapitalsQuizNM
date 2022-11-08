@@ -47,7 +47,7 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
                     + ")";
 
     // Creating quizzes table using sql
-    private static final String CREATE_QUIIZZES =
+    private static final String CREATE_QUIZZES =
             "create table " + TABLE_QUIZZES + " ("
                     + QUIZZES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + QUIZZES_COLUMN_SCORE + " INTEGER, "
@@ -73,7 +73,7 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_CITIES);
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_QUIZZES);
         db.execSQL( CREATE_CITIES );
-        db.execSQL( CREATE_QUIIZZES );
+        db.execSQL(CREATE_QUIZZES);
         Log.d( DEBUG_TAG, "Table " + TABLE_CITIES + " created" );
         new addData().execute( db );
     }
@@ -129,4 +129,6 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         onCreate( db );
         Log.d( DEBUG_TAG, "Table " + TABLE_CITIES + " upgraded" );
     }
+
+
 }

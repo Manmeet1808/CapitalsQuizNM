@@ -73,9 +73,14 @@ public class ReviewHistory2 extends Fragment {
 
         @Override
         protected void onPostExecute( List<QuizVariables> quizObjectList ) {
-            super.onPostExecute(quizList);
-            recyclerAdapter = new Recycler( quizList );
+//            super.onPostExecute(quizList);
+            recyclerAdapter = new Recycler( quizObjectList );
+
             recyclerView.setAdapter( recyclerAdapter );
+            recyclerAdapter.notifyDataSetChanged();
+
+
+            super.onPostExecute(quizObjectList);
 
         }
 

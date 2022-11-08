@@ -35,7 +35,7 @@ public class MainQuizAdapter extends AppCompatActivity {
     public static final String SCORE = "score";
     public static final String QUIZ_LIST = "quiz question list";
 
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    //SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     ActionBar mActionBar;
 

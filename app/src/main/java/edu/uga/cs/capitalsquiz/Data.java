@@ -19,8 +19,8 @@ public class Data {
 
     // this is a reference to our database; it is used later to run SQL commands
     public Context myContext;
-    private  SQLiteDatabase db;
-    private  SQLiteOpenHelper CapitalsquizDbHelper;
+    private SQLiteDatabase db;
+    private SQLiteOpenHelper CapitalsquizDbHelper;
 
     //defines the columns used in the table to store the information about each state
     private static final String[] allQuestionColumns = {

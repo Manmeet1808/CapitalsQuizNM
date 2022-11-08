@@ -88,7 +88,7 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         protected SQLiteDatabase doInBackground(SQLiteDatabase... sqLiteDatabases) {
             try {
                 AssetManager am = myContext.getAssets();
-                InputStream in_s = am.open("state_capitals.csv");
+                InputStream in_s = am.open("quizData.csv");
 
                 BufferedReader buffer = new BufferedReader(new InputStreamReader(in_s));
 

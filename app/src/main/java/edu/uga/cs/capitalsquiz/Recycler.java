@@ -36,7 +36,7 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
 
     @Override
     public QuizHolder onCreateViewHolder(ViewGroup parent, int viewType ) {
-        View view = LayoutInflater.from( parent.getContext()).inflate( R.layout.quiz_result, parent, false );
+        View view = LayoutInflater.from( parent.getContext()).inflate( R.layout.results_page, parent, false );
         return new QuizHolder( view );
     }
 

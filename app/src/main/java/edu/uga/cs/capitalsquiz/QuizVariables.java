@@ -52,6 +52,9 @@ public class QuizVariables {
         this.score = score;
     }
 
+    public QuizVariables(ReviewHistory reviewHistory) {
+    }
+
     public long getId() { return id; }
 
     public void setId(long id) { this.id = id; }

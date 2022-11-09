@@ -54,11 +54,13 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
                     + QUIZZES_COLUMN_DATE + " TEXT "
                     + ")";
 
+    //Access method to the single instance of this class
     private CapitalQuizDBHelper(Context context) {
         super( context, DB_NAME, null, DB_VERSION );
         this.myContext = context;
     }
 
+    //
     public static synchronized CapitalQuizDBHelper getInstance( Context context ) {
         if( helperInstance == null ) {
             helperInstance = new CapitalQuizDBHelper( context.getApplicationContext() );
@@ -117,11 +119,8 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    //CHANGE UP COMMENT - FROM KOCHUT
-
-    //We should override onUpgrade method, which will be used to upgrade the database if
-    // its version (DB_VERSION) has changed.  This will be done automatically by Android
-    // if the version will be bumped up, as we modify the database schema.
+    //This  method will override the onUpgrade method in order to upgrade the database if the version
+    //has changed.
     @Override
     public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_CITIES);

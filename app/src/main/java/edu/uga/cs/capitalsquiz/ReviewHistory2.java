@@ -14,7 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * This class displays the user's quiz history.
+ */
+
 public class ReviewHistory2 extends Fragment {
+
+    public static final String DEBUG_TAG = "ReviewHistory2";
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -23,8 +29,8 @@ public class ReviewHistory2 extends Fragment {
     private Data quizData = null;
     private List<QuizVariables> quizList;
 
+    //class constructor
     public ReviewHistory2() {
-        // Required empty public constructor
     }
 
     public static ReviewHistory2 newInstance() {
@@ -51,16 +57,14 @@ public class ReviewHistory2 extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager( layoutManager );
 
-
         quizData = new Data( getContext() );
-
 
         new QuizzesDBReaderTask().execute();
 
         return view;
     }
 
-    //This is an AsyncTask class (it extends AsyncTask) to read quizzes
+    //This class returns the past quizzes the user has taken as a list
     private class QuizzesDBReaderTask extends AsyncTask<Void, List<QuizVariables>> {
 
         @Override
@@ -73,15 +77,11 @@ public class ReviewHistory2 extends Fragment {
 
         @Override
         protected void onPostExecute( List<QuizVariables> quizObjectList ) {
-//            super.onPostExecute(quizList);
+//          super.onPostExecute(quizList);
             recyclerAdapter = new Recycler( quizObjectList );
-
             recyclerView.setAdapter( recyclerAdapter );
             recyclerAdapter.notifyDataSetChanged();
-
-
             super.onPostExecute(quizObjectList);
-
         }
 
 

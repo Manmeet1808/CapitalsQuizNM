@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+/**
+ * Code taken from Dr. Kochut's sample app, JobsTrackerSQLite
+ */
 
 public class Splash extends Fragment {
 
+    //class constructor
     public Splash() {
-        // Required empty public constructor
     }
 
     public static Splash newInstance() {

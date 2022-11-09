@@ -10,24 +10,25 @@
     <string name="back_home">Back to Home</string>
     <string name="help_text">
         <![CDATA[
-            <h3>Jobs Tracker</h3> <p>This app can be used to manage your potential job leads.
-            Each job lead includes the <i>company name</i>, <i>telephone number</i>, its <i>website URL</i>, and your brief <i>comments</i> about the company.
-            Open the nav drawer to view the navigation menu.  You will be able to invoke the app\'s functions.
-            You will be able to access the following screens:<br/><br/>
-             <b>Add job leads</b><br/>
-             Here, you will be able to provide the information about the new job lead.  You will be able to
-             enter multiple job leads from this screen.<br/><br/>
-             <b>Review job leads</b><br/>
-             Here, you will be able to review all of your job leads.  You will be able to search for a specific job of interest.
-             Just tap on the magnifying glass icon on top of the screen and then enter a keyword.
-             Your job leads will be filtered based on the keyword and you
-             will see only job leads with the keyword in the company name or in the comments section.
-             While on this screen, you will also be able to add a new job lead, should you choose to do so.
-             Tap on the round Plus button at the bottom of the screen and enter a new Job Lead information into the dialog box.<br/><br/>
-             <b>Close app</b><br/>
-             The app will be closed.<br/><br/>
-             <b>Get help</b><br/>
-             Useful help information about the app will be displayed.<br/><br/>
+            <h3>Capital Cities Quiz</h3>
+            <p>Welcome to Capital Cities Quiz!
+            This app has quizzes to test your knowledge of the state capitals in the United States. Take a quiz consisting of six questions
+            and see if you can guess the capital of the state presented to you. Past scores and quizzes will be saved and you will be able to
+            take as many quizzes as you\'d like. In order to see all the features this app has available to you, open the nav drawer in the top
+            left corner of the screen to see the navigation menu.
+            <br/><br/>
+            These are the options presented:<br/><br/>
+             <b>Take Quiz</b><br/>
+             Click this in order to take a quiz! Each quiz consists of six questions and you are therefore quizzes on six different states.
+             Each question will list three cities found in that state and you must decide which one is the state\'s capital. Your score will
+             be presented at the end of the quiz.<br/><br/>
+             <b>Review History</b><br/>
+             On this screen you will be able to view all your past quizzes. The states you were quizzed on, your score, and the date at which you
+             took the quiz will be displayed. The quizzes will be listed from newest to oldest.<br/><br/>
+             <b>Need Help</b><br/>
+             Helpful information about the app and all of it's features.<br/><br/>
+             <b>Close App</b><br/>
+             The app will close immediately.<br/><br/>
         ]]>
     </string>
 </resources>

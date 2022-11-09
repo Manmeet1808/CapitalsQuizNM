@@ -3,6 +3,9 @@ package edu.uga.cs.capitalsquiz;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * This class defines the various parts of a quiz question.
+ */
 
 public class Questions implements Parcelable {
     private long   id;
@@ -36,6 +39,7 @@ public class Questions implements Parcelable {
         city1 = in.readString();
         city2 = in.readString();
     }
+
     @Override
     public int describeContents() {
         return 0;
@@ -62,43 +66,51 @@ public class Questions implements Parcelable {
         }
     };
 
-    public long getId() { return id; }
-
-    public void setId(long id) { this.id = id; }
-
-    public String getState() { return state; }
-
-    public void setState(String state) { this.state = state; }
-
-    public String getCapital() { return capital; }
-
-    public void setCapital(String capital) { this.capital = capital; }
-
+    //getters for the quiz variables
+    public long getId() {
+        return id;
+    }
+    public String getState() {
+        return state;
+    }
+    public String getCapital() {
+        return capital;
+    }
     public String getCity1()
     {
         return city1;
     }
-
-    public void setCity1(String city1)
-    {
-        this.city1 = city1;
-    }
-
     public String getCity2()
     {
         return city2;
     }
 
+    //setters for the quiz variables
+    public void setId(long id) {
+        this.id = id;
+    }
+    public void setState(String state) {
+        this.state = state;
+    }
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+    public void setCity1(String city1)
+    {
+        this.city1 = city1;
+    }
     public void setCity2(String city2)
     {
         this.city2 = city2;
     }
 
+    //returns the quiz question information as a string
     public String toString()
     {
         return id + ": " + state + " " + capital + " " + city1 + " " + city2;
     }
 
+    //checks to see if the answer chosen was correct or not
     public boolean gradeQuestion(String answer) {
         if(capital.equals(answer)) {
             return true;

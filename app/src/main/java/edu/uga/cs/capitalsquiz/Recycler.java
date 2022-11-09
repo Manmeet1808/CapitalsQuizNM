@@ -11,8 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * This class is the adapter used to display the previous quizzes.
+ */
+
 public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
-    public static final String DEBUG_TAG = "QuizRecyclerAdapter";
+
+    public static final String DEBUG_TAG = "Recycler";
 
     private List<QuizVariables> quizList;
 
@@ -27,12 +32,10 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
 
         public QuizHolder(View itemView ) {
             super(itemView);
-
             date = (TextView) itemView.findViewById( R.id.date );
             score = (TextView) itemView.findViewById( R.id.score );
         }
     }
-
 
     @Override
     public QuizHolder onCreateViewHolder(ViewGroup parent, int viewType ) {
@@ -40,6 +43,7 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
         return new QuizHolder( view );
     }
 
+    //fills in the values of a holder to show the score and date of the quiz taken
     @Override
     public void onBindViewHolder( QuizHolder holder, int position ) {
         QuizVariables quiz = quizList.get( position );
@@ -52,7 +56,10 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
 
     @Override
     public int getItemCount() {
-        return quizList.size();
+        if (quizList != null)
+            return quizList.size();
+        else
+            return 0;
     }
 
 }

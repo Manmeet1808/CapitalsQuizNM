@@ -10,11 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
+/**
+ * Code is from Dr. Kochut's sample app, JobsTrackerSQLite.
+ */
 
 public class HelpScreen extends Fragment {
 
+    //required constructor
     public HelpScreen() {
-        // Required empty public constructor
     }
 
     public static HelpScreen newInstance() {
@@ -30,7 +33,7 @@ public class HelpScreen extends Fragment {
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState ) {
-        // Inflate the layout for this fragment
+        // Inflates the layout for the fragment
         return inflater.inflate( R.layout.help_screen, container, false );
     }
 

@@ -65,16 +65,20 @@ public class MainActivity extends AppCompatActivity {
         switch( menuItem.getItemId() ) {
             case R.id.take_quiz:
                 //fragment = new AddJobLeadFragment();
+                Intent switchActivityIntent = new Intent(this, MainQuizAdapter.class);
+                startActivity(switchActivityIntent);
                 break;
             case R.id.review_history:
                   fragment = new ReviewHistory2();
+                FragmentManager fragManager = getSupportFragmentManager();
+                fragManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
 //                Intent switchActivityIntent = new Intent(this, ReviewHistory.class);
 //                startActivity(switchActivityIntent);
                 break;
             case R.id.help:
                 fragment = new HelpScreen();
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+               fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
                 break;
             case R.id.close:
                 finish();
@@ -84,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Set up the fragment by replacing any existing fragment in the main activity
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
 
 
         /*

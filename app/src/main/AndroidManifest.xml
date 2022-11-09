@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name=".ReviewHistory"
+            android:name=".MainQuizAdapter"
             android:screenOrientation="portrait" />
 
     </application>

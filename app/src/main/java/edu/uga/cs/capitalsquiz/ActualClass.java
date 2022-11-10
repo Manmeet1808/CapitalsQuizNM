@@ -103,7 +103,7 @@ public class ActualClass extends AppCompatActivity {
                 fullQuestionsList = quizQuestionsData.retrieveAllQuizQuestions();
 
                 quizList = new ArrayList<>();
-                int size = 50;
+                int size = 49;
                 ArrayList<Integer> list = new ArrayList<>(size);
                 for (int i = 0; i <= size; i++) {
                     list.add(i);
@@ -143,6 +143,10 @@ public class ActualClass extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                // mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(position));
+                if(position== mViewPager.getAdapter().getCount() - 1) {
+                    setContentView(R.layout.results_page);
+                }
+
             }
 
             @Override
@@ -172,12 +176,17 @@ public class ActualClass extends AppCompatActivity {
 
                     //show submit button : button onclick stores final q answer, quiz results, launches results screen
                     //this makes the button visible on the last page!
+
                     submitButton.setVisibility(View.VISIBLE);
-                    submitButton.setOnClickListener(new ActualClass.ButtonClickListener());
+                    submitButton.setOnClickListener(new ActualClass.ButtonClickListener() {
+
+                    });
                 }
             }
-
         });
+
+
+
     }
 
     /**
@@ -218,14 +227,8 @@ public class ActualClass extends AppCompatActivity {
                 dateText.setText(strDate);
             }
             //if the new quiz button is pushed on the results page
-            else if(v == newQuiz) {
+            else if (v == newQuiz) {
                 Intent intent = new Intent(v.getContext(), ActualClass.class);
-                startActivity(intent);
-            }
-            //if view past results button is pushed on the results page
-            else if(v == viewPastResults)
-            {
-                Intent intent = new Intent(v.getContext(), ReviewHistory2.class);
                 startActivity(intent);
             }
 

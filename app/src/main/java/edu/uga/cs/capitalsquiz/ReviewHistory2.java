@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,8 +52,11 @@ public class ReviewHistory2 extends AppCompatActivity {
 
         @Override
         protected List<QuizVariables> doInBackground( Void... params ) {
+            //ArrayList<Integer> myList = (ArrayList<Integer>) getIntent().getSerializableExtra("FinalScores");
+
             quizData.open();
             quizList = quizData.retrieveAllQuizzes();
+            Log.d(DEBUG_TAG, "Size of Quiz: " + quizList.size());
 
             return quizList;
         }

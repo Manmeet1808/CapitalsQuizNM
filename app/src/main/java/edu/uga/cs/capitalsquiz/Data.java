@@ -202,9 +202,18 @@ public class Data {
 
     //retrieve all the Quizzes and return them as a list
     public List<QuizVariables> retrieveAllQuizzes() {
+//        ActualClass list = new ActualClass();
+//        List<Integer> s = list.getResult();
+//        List<String> d = list.getTime();
+//        int size = s.size();
         ArrayList<QuizVariables> quizzes = new ArrayList<>();
         Cursor cursor = null;
         QuizVariables quiz;
+
+//        for (int i = 0; i < size; i++) {
+//            quiz = new QuizVariables(s.get(i),  "12/30/9999");
+//            quizzes.add( quiz );
+//        }
 
         try {
             cursor = db.query( CapitalQuizDBHelper.TABLE_QUIZZES, allQuizColumns,

@@ -40,6 +40,10 @@ public class ActualClass extends AppCompatActivity {
     public static final String SCORE = "score";
     public static final String QUIZ_LIST = "quiz question list";
 
+    private int increment = 0;
+    public ArrayList<Integer> scores = new ArrayList<Integer>();
+    public ArrayList<String> dates = new ArrayList<String>();
+
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     ActionBar mActionBar;
@@ -76,6 +80,7 @@ public class ActualClass extends AppCompatActivity {
         outState.putParcelableArrayList(QUIZ_LIST, (ArrayList<? extends Parcelable>) quizList);
 
     }
+
 
     /**
      * Creates the basic information for the quiz activity
@@ -139,10 +144,12 @@ public class ActualClass extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 pos=position;
+
             }
 
             @Override
             public void onPageSelected(int position) {
+                    gradeQuestion(pos);
                // mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(position));
                 if(position == mViewPager.getAdapter().getCount() - 1) {
 
@@ -154,10 +161,15 @@ public class ActualClass extends AppCompatActivity {
                     resultText.setText(currentQuiz.getScore() + " out of 6");
 
 
+
+
                     Date date = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
                     String strDate = formatter.format(date);
                     currentQuiz.setDate(strDate);
+                    
+                    scores.add(currentQuiz.getScore());
+                    dates.add(strDate);
 
                     new QuizDBWriterTask().execute( currentQuiz );
                     //currentQuiz.setScore(0);
@@ -168,7 +180,9 @@ public class ActualClass extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-                            finish();
+                            Intent move = new Intent(view.getContext(), ReviewHistory2.class);
+                            move.putExtra("FinalScores", scores);
+                            startActivity(move);
                         }
                     });
                 }
@@ -179,7 +193,7 @@ public class ActualClass extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
                 if(state == 1) {
                     Log.d(DEBUG_TAG, "pos: " + pos);
-                    gradeQuestion(pos);
+
                 }
             }
 
@@ -261,6 +275,14 @@ public class ActualClass extends AppCompatActivity {
 //            }
 
         }
+    }
+
+    public ArrayList<Integer> getResult() {
+        return scores;
+    }
+
+    public ArrayList<String> getTime() {
+        return dates;
     }
 
     /**

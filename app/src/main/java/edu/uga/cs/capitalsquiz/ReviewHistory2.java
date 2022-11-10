@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,7 +63,7 @@ public class ReviewHistory2 extends Fragment {
     }
 
     //This class returns the past quizzes the user has taken as a list
-    private class QuizzesDBReaderTask extends AsyncTask<Void, List<QuizVariables>> {
+    private class QuizzesDBReaderTask extends Async<Void, List<QuizVariables>> {
 
         @Override
         protected List<QuizVariables> doInBackground( Void... params ) {

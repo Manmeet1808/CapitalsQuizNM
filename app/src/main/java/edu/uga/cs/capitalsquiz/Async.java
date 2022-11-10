@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
  * @param <Param> type of the input parameter for doInBackground
  * @param <Result> type of the result value returned by doInBackground
  */
-public abstract class AsyncTask<Param,Result> {
+public abstract class Async<Param,Result> {
 
     // An internal method to execute something in background
     private void executeInBackground( Param... params ) {

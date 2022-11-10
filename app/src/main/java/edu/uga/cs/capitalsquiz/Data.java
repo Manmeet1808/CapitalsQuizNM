@@ -17,12 +17,12 @@ public class Data {
 
     public static final String DEBUG_TAG = "QuizQuestions";
 
-    //references to the database
+    // this is a reference to our database; it is used later to run SQL commands
     public Context myContext;
     private SQLiteDatabase db;
     private SQLiteOpenHelper CapitalsquizDbHelper;
 
-    //declares the various columns in the table holding the information used to create each quiz
+    //defines the columns used in the table to store the information about each state
     private static final String[] allQuestionColumns = {
             CapitalQuizDBHelper.CAPITALS_COLUMN_ID,
             CapitalQuizDBHelper.CAPITALS_COLUMN_STATE,
@@ -30,7 +30,7 @@ public class Data {
             CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1,
             CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2
     };
-    //declares the various columns in the table storing past quiz information
+    //defines the columns used in the table to store the quizzes
     private static final String[] allQuizColumns = {
             CapitalQuizDBHelper.QUIZZES_COLUMN_ID,
             CapitalQuizDBHelper.QUIZZES_COLUMN_SCORE,
@@ -42,24 +42,21 @@ public class Data {
         this.myContext = context;
     }
 
-    //opens up the database
+    // Open the database
     public void open() {
         db = CapitalsquizDbHelper.getWritableDatabase();
-        Log.d( DEBUG_TAG, "QuizQuestions: database is open" );
+        Log.d( DEBUG_TAG, "QuizQuestions: db open" );
     }
 
-    //closes the database
+    // Close the database
     public void close() {
         if( CapitalsquizDbHelper != null ) {
             CapitalsquizDbHelper.close();
-            Log.d(DEBUG_TAG, "QuizQuestions: database is closed");
+            Log.d(DEBUG_TAG, "QuizQuestions: db closed");
         }
     }
 
-    /**
-     * This method goes through and fetches all the quiz questions needed to display in the past history
-     * page that shows your previous quizzes. It returns the questions as a list.
-     */
+    //retrieve all the Quiz Questions and return them as a list
     public List<Questions> retrieveAllQuizQuestions() {
         ArrayList<Questions> questions = new ArrayList<>();
         Cursor cursor = null;
@@ -68,6 +65,7 @@ public class Data {
         try {
             cursor = db.query( CapitalQuizDBHelper.TABLE_CITIES, allQuestionColumns,
                     null, null, null, null, null );
+
             if( cursor.getCount() > 1 ) {
                 while( cursor.moveToNext() ) {
                     long id = cursor.getColumnIndex( CapitalQuizDBHelper.CAPITALS_COLUMN_ID );
@@ -79,27 +77,25 @@ public class Data {
                     question = new Questions(state, capital, city1, city2);
                     question.setId( id );
                     questions.add( question );
-                    Log.d( DEBUG_TAG, "Past Quiz Question - " + question );
+                    Log.d( DEBUG_TAG, "Retrieved Question: " + question );
                 }
             }
-            Log.d( DEBUG_TAG, "Record Count - " + cursor.getCount() );
+            Log.d( DEBUG_TAG, "Number of records from DB: " + cursor.getCount() );
         }
         catch( Exception e ){
-            Log.d( DEBUG_TAG, "Exception - " + e );
+            Log.d( DEBUG_TAG, "Exception caught: " + e );
         }
         finally{
+            // close the cursor
             if (cursor != null) {
                 cursor.close();
             }
         }
+        // return a list of retrieved questions
         return questions;
     }
 
-    /**
-     * This method goes through and fetches all the information needed to display in the past history
-     * page that shows your previous quizzes. It returns the quizzes and associated information in the
-     * form of a list.
-     */
+    //retrieve all the Quizzes and return them as a list
     public List<QuizVariables> retrieveAllQuizzes() {
         ArrayList<QuizVariables> quizzes = new ArrayList<>();
         Cursor cursor = null;
@@ -115,29 +111,28 @@ public class Data {
                     String date = cursor.getString( cursor.getColumnIndexOrThrow( CapitalQuizDBHelper.QUIZZES_COLUMN_DATE ) );
                     int score = Integer.parseInt(cursor.getString( cursor.getColumnIndexOrThrow( CapitalQuizDBHelper.QUIZZES_COLUMN_SCORE ) ));
 
-                    quiz = new QuizVariables(score, date);
+                    quiz = new QuizVariables(score,  date);
                     quiz.setId( id );
                     quizzes.add( quiz );
-                    Log.d( DEBUG_TAG, "Past Quiz - " + quiz );
+                    Log.d( DEBUG_TAG, "Retrieved Quiz: " + quiz );
                 }
             }
-            Log.d( DEBUG_TAG, "Quiz Count - " + cursor.getCount() );
+            Log.d( DEBUG_TAG, "Number of Quizzes from DB: " + cursor.getCount() );
         }
         catch( Exception e ){
-            Log.d( DEBUG_TAG, "Exception - " + e );
+            Log.d( DEBUG_TAG, "Exception caught: " + e );
         }
         finally{
+            // close the cursor
             if (cursor != null) {
                 cursor.close();
             }
         }
+        // return a list of retrieved quizzes
         return quizzes;
     }
 
-    /**
-     * This method stores and inserts a new quiz into the table that holds the past quizzes information.
-     * The quiz score and the date taken is stored in this method.
-     */
+    // Store a new quiz in the database.
     public QuizVariables storeQuiz( QuizVariables quiz ) {
 
         ContentValues values = new ContentValues();
@@ -153,10 +148,7 @@ public class Data {
         return quiz;
     }
 
-    /**
-     * This method stores and inserts a new quiz into the table that holds the past quizzes information.
-     * The states and cities the user is quizzed on are stored in this method.
-     */
+    //stores a new quiz question
     public Questions storeQuizQuestion( Questions question ) {
 
         ContentValues values = new ContentValues();
@@ -164,8 +156,11 @@ public class Data {
         values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, question.getCapital() );
         values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, question.getCity1() );
         values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, question.getCity2() );
+
         long id = db.insert( CapitalQuizDBHelper.TABLE_CITIES, null, values );
-        question.setId(id);
+
+        question.setId( id );
+
         return question;
     }
 

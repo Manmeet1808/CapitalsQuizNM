@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="edu.uga.cs.capitalsquiz">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".MainQuizAdapter"
+            android:name=".ActualClass"
             android:screenOrientation="portrait" />
 
     </application>

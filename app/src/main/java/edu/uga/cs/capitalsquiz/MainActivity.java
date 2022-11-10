@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 /**
- * Code for the main activity taken from Dr. Kochut's sample app, JobsTrackerSQLite.
+ * The main activity class.  It just sets listeners for the two buttons.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -33,20 +33,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
 
-        // assigns the toolbar ID to a variable
+        // assigning ID of the toolbar to a variable
         toolbar = findViewById( R.id.toolbar );
 
-        // finds the drawer view
+        // using toolbar as ActionBar
+        //setSupportActionBar( toolbar );
+
+        // Find our drawer view
         drawerLayout = (DrawerLayout) findViewById( R.id.drawer_layout );
         drawerToggle = setupDrawerToggle();
 
         drawerToggle.setDrawerIndicatorEnabled( true );
         drawerToggle.syncState();
 
-        //connects DrawerLayout events to the ActionBarToggle
+        // Connect DrawerLayout events to the ActionBarToggle
         drawerLayout.addDrawerListener( drawerToggle );
 
-        //find the drawer view
+        // Find the drawer view
         navView = findViewById( R.id.nvView );
         navView.setNavigationItemSelectedListener(
                 menuItem -> {
@@ -58,21 +61,24 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem( MenuItem menuItem ) {
         Fragment fragment = null;
 
-        //creates a new fragment based on the user selection in the nav drawer
+        // Create a new fragment based on the used selection in the nav drawer
         switch( menuItem.getItemId() ) {
             case R.id.take_quiz:
-                Intent switchActivityIntent = new Intent(this, MainQuizAdapter.class);
+                //fragment = new AddJobLeadFragment();
+                Intent switchActivityIntent = new Intent(this, ActualClass.class);
                 startActivity(switchActivityIntent);
                 break;
             case R.id.review_history:
                   fragment = new ReviewHistory2();
                 FragmentManager fragManager = getSupportFragmentManager();
                 fragManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+//                Intent switchActivityIntent = new Intent(this, ReviewHistory.class);
+//                startActivity(switchActivityIntent);
                 break;
             case R.id.help:
                 fragment = new HelpScreen();
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+               fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
                 break;
             case R.id.close:
                 finish();
@@ -81,10 +87,26 @@ public class MainActivity extends AppCompatActivity {
                 return;
         }
 
+        // Set up the fragment by replacing any existing fragment in the main activity
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+
+
+        /*
+        // this is included here as a possible future modification
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked( true );
+        // Set action bar title
+        setTitle( menuItem.getTitle());
+         */
+
+        // Close the navigation drawer
         drawerLayout.closeDrawers();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
+        // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
+        // and will not render the hamburger icon without it.
         return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_d,  R.string.close_d);
     }
 

@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
+//import android.os.AsyncTask;
 import android.util.Log;
 
+import com.opencsv.CSVReader;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -74,9 +77,10 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
     public void onCreate( SQLiteDatabase db ) {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_CITIES);
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_QUIZZES);
-        db.execSQL( CREATE_CITIES );
+        db.execSQL(CREATE_CITIES );
         db.execSQL(CREATE_QUIZZES);
         Log.d( DEBUG_TAG, "Table " + TABLE_CITIES + " created" );
+
         new addData().execute( db );
     }
 
@@ -84,37 +88,64 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
      * addData reads from the CSV file in the assets folder in order to populate one of
      * the SQLite databases with the necessary information for the quiz
      */
-    private class addData extends AsyncTask<SQLiteDatabase, Void, SQLiteDatabase> {
+    private class addData extends Async<SQLiteDatabase, SQLiteDatabase> {
 
         @Override
         protected SQLiteDatabase doInBackground(SQLiteDatabase... sqLiteDatabases) {
+            //Log.d(DEBUG_TAG, "Line: " );
             try {
+                int val = 0;
                 AssetManager am = myContext.getAssets();
                 InputStream in_s = am.open("quizData.csv");
+                Log.d(DEBUG_TAG, "InputStream was opened " );
+                CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
+               String [] nextLine;
+               while( ( nextLine = reader.readNext() ) != null ) {
+                   ContentValues values = new ContentValues();
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, nextLine[0]);
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, nextLine[1] );
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, nextLine[2] );
+                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, nextLine[3] );
 
-                BufferedReader buffer = new BufferedReader(new InputStreamReader(in_s));
+                    long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
+                    Log.d(DEBUG_TAG, "Id Inserted: " + id);
 
-                String nextLine = "";
-                try {
-                    while ((nextLine = buffer.readLine()) != null) {
-                        String[] columns = nextLine.split(",");
+                    Log.d( DEBUG_TAG, "Line: " + nextLine );
+                    val++;
 
-                        ContentValues values = new ContentValues();
-                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, columns[0]);
-                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, columns[1] );
-                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, columns[2] );
-                        values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, columns[3] );
 
-                        long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
+               }
+                Log.d(DEBUG_TAG, "How many states: " + val );
+                am.close();
+                //InputStream in_s = am.open("quizData.csv");
 
-                        Log.d( DEBUG_TAG, "Line: " + nextLine );
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
+            }  catch (Exception e) {
                 Log.e( DEBUG_TAG, e.toString() );
             }
+
+//            try {
+//                AssetManager am = myContext.getAssets();
+//                InputStream in_s = am.open("quizData.csv");
+//
+//                // read the CSV data
+//                CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
+//                String [] nextLine;
+//                while( ( nextLine = reader.readNext() ) != null ) {
+//                    ContentValues values = new ContentValues();
+//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, nextLine[0]);
+//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, nextLine[1] );
+//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, nextLine[2] );
+//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, nextLine[3] );
+//
+//                    long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
+//                    Log.d(DEBUG_TAG, "Id Inserted: " + id);
+//
+//                    Log.d( DEBUG_TAG, "Line: " + nextLine );
+//                    return sqLiteDatabases[0];
+//                }
+//            } catch (Exception e) {
+//                Log.e( DEBUG_TAG, e.toString() );
+//            }
             return null;
         }
     }

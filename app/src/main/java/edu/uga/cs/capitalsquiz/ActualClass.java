@@ -103,7 +103,7 @@ public class ActualClass extends AppCompatActivity {
                 fullQuestionsList = quizQuestionsData.retrieveAllQuizQuestions();
 
                 quizList = new ArrayList<>();
-                int size = 8;
+                int size = 50;
                 ArrayList<Integer> list = new ArrayList<>(size);
                 for (int i = 0; i <= size; i++) {
                     list.add(i);

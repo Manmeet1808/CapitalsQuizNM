@@ -103,7 +103,7 @@ public class ActualClass extends AppCompatActivity {
                 fullQuestionsList = quizQuestionsData.retrieveAllQuizQuestions();
 
                 quizList = new ArrayList<>();
-                int size = 50;
+                int size = 8;
                 ArrayList<Integer> list = new ArrayList<>(size);
                 for (int i = 0; i <= size; i++) {
                     list.add(i);
@@ -119,7 +119,7 @@ public class ActualClass extends AppCompatActivity {
                     Log.d(DEBUG_TAG, "Random number selected: " + list.get(index));
                     list.remove(index);
                 }
-                //createQuiz(quizList);
+                createQuiz(quizList);
             }
             else {
                 quizQuestionsData.open();
@@ -142,7 +142,7 @@ public class ActualClass extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(position));
+               // mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(position));
             }
 
             @Override
@@ -155,7 +155,7 @@ public class ActualClass extends AppCompatActivity {
 
             public void gradeQuestion(int position) {
                 if(position != 5) {
-                    //Sydney!!!
+
                     correctAnswer = (String) rbSelected.getText();
                     correctAnswer = correctAnswer.substring(3);
                     Log.d(DEBUG_TAG, "RBSelected: " + correctAnswer);
@@ -169,7 +169,7 @@ public class ActualClass extends AppCompatActivity {
                 }
                 else if(position == 5) {
                     Log.d(DEBUG_TAG, "Store Quiz");
-                    //Molly!!!
+
                     //show submit button : button onclick stores final q answer, quiz results, launches results screen
                     //this makes the button visible on the last page!
                     submitButton.setVisibility(View.VISIBLE);
@@ -371,33 +371,33 @@ public class ActualClass extends AppCompatActivity {
                     intList.add(i);
                 }
 
-//                options = new ArrayList<String>();
-//
-//                options.add(quizList.get(questionNum - 1).getCapital());
-//                options.add(quizList.get(questionNum - 1).getCity1());
-//                options.add(quizList.get(questionNum - 1).getCity2());
-//
-//                Collections.shuffle(options);
+                options = new ArrayList<String>();
+
+                options.add(quizList.get(questionNum - 1).getCapital());
+                options.add(quizList.get(questionNum - 1).getCity1());
+                options.add(quizList.get(questionNum - 1).getCity2());
+
+                Collections.shuffle(options);
             }
             else {
-//                options = new ArrayList<String>();
-//
-//                options.add(quizList.get(questionNum - 1).getCapital());
-//                options.add(quizList.get(questionNum - 1).getCity1());
-//                options.add(quizList.get(questionNum - 1).getCity2());
-//
-//                Collections.shuffle(options);
+                options = new ArrayList<String>();
+
+                options.add(quizList.get(questionNum - 1).getCapital());
+                options.add(quizList.get(questionNum - 1).getCity1());
+                options.add(quizList.get(questionNum - 1).getCity2());
+
+                Collections.shuffle(options);
 
                 Log.d(DEBUG_TAG, "Options: " + options);
             }
 
-            //quest = "What is the capital of " + quizList.get(questionNum - 1).getState();
+            quest = "What is the capital of " + quizList.get(questionNum - 1).getState();
 
-//            opt1 = options.get(0);
-//            opt2 = options.get(1);
-//            opt3 = options.get(2);
+            opt1 = options.get(0);
+            opt2 = options.get(1);
+            opt3 = options.get(2);
 
-            //((ActualClass) getActivity()).loadView(question, quest, option1, opt1, option2, opt2, option3, opt3);
+            ((ActualClass) getActivity()).loadView(question, quest, option1, opt1, option2, opt2, option3, opt3);
         }
 
         @Override

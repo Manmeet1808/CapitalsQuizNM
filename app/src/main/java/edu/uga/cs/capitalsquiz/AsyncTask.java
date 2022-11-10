@@ -64,7 +64,7 @@ public abstract class AsyncTask<Param,Result> {
             handler.post( new Runnable() {
                 @Override
                 public void run() {
-                    // handle the method result in the main UI threa
+                    // handle the method result in the main UI thread
                     onPostExecute( result );
                 }
             });

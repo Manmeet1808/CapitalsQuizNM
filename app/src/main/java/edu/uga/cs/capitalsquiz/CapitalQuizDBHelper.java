@@ -81,7 +81,7 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * addData reads from the CSV file in the assets folder in order to populate two of
+     * addData reads from the CSV file in the assets folder in order to populate one of
      * the SQLite databases with the necessary information for the quiz
      */
     private class addData extends AsyncTask<SQLiteDatabase, Void, SQLiteDatabase> {

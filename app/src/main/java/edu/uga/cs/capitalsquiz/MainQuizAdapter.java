@@ -156,7 +156,6 @@ public class MainQuizAdapter extends AppCompatActivity {
 //
 //            public void gradeQuestion(int position) {
 //                if (position != 5) {
-//                    //Sydney!!!
 //                    correctAnswer = (String) rbSelected.getText();
 //                    correctAnswer = correctAnswer.substring(3);
 //                    Log.d(DEBUG_TAG, "RBSelected: " + correctAnswer);
@@ -169,7 +168,6 @@ public class MainQuizAdapter extends AppCompatActivity {
 //                    Log.d(DEBUG_TAG, "Score: " + currentQuiz.getScore());
 //                } else if (position == 5) {
 //                    Log.d(DEBUG_TAG, "Store Quiz");
-//                    //Molly!!!
 //                    //show submit button : button onclick stores final q answer, quiz results, launches results screen
 //                    //this makes the button visible on the last page!
 //                    submitButton.setVisibility(View.VISIBLE);

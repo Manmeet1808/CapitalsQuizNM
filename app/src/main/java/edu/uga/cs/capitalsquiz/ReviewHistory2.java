@@ -1,24 +1,23 @@
 package edu.uga.cs.capitalsquiz;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import android.os.Bundle;
+
+import android.os.AsyncTask;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.List;
 
 /**
- * This class displays the user's quiz history.
+ * The ReviewQuizzesActivity class uses the QuizRecyclerAdapter to show the previous
+ * quizzes stored in the app
  */
+public class ReviewHistory2 extends AppCompatActivity {
 
-public class ReviewHistory2 extends Fragment {
-
-    public static final String DEBUG_TAG = "ReviewHistory2";
+    public static final String DEBUG_TAG = "ReviewQuizzesActivity";
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -27,42 +26,27 @@ public class ReviewHistory2 extends Fragment {
     private Data quizData = null;
     private List<QuizVariables> quizList;
 
-    //class constructor
-    public ReviewHistory2() {
-    }
-
-    public static ReviewHistory2 newInstance() {
-        ReviewHistory2 fragment = new ReviewHistory2();
-        return fragment;
-    }
-
     @Override
-    public void onCreate( Bundle savedInstanceState ) {
+    protected void onCreate( Bundle savedInstanceState ) {
 
-        super.onCreate(savedInstanceState);
-    }
+        Log.d( DEBUG_TAG, "ReviewQuizActivity.onCreate()" );
 
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.review_history );
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState ) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.review_history, container, false);
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById( R.id.recyclerView );
 
         // use a linear layout manager for the recycler view
-        layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(this );
         recyclerView.setLayoutManager( layoutManager );
 
-        quizData = new Data( getContext() );
+        quizData = new Data( this );
 
         new QuizzesDBReaderTask().execute();
 
-        return view;
     }
 
-    //This class returns the past quizzes the user has taken as a list
+    // This is an AsyncTask class (it extends AsyncTask) to read quizzes
     private class QuizzesDBReaderTask extends Async<Void, List<QuizVariables>> {
 
         @Override
@@ -75,21 +59,45 @@ public class ReviewHistory2 extends Fragment {
 
         @Override
         protected void onPostExecute( List<QuizVariables> quizObjectList ) {
-//          super.onPostExecute(quizList);
-            recyclerAdapter = new Recycler( quizObjectList );
+            super.onPostExecute(quizList);
+            recyclerAdapter = new Recycler( quizList );
             recyclerView.setAdapter( recyclerAdapter );
-            recyclerAdapter.notifyDataSetChanged();
-            super.onPostExecute(quizObjectList);
         }
-
-
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState ) {
-        super.onViewCreated(view,savedInstanceState);
+    protected void onResume() {
+        // open the database in onResume
+        if( quizData != null )
+            quizData.open();
+        super.onResume();
     }
 
+    @Override
+    protected void onPause() {
+        // close the database in onPause
+        if( quizData != null )
+            quizData.close();
+        super.onPause();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 }
-

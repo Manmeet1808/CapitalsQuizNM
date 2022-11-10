@@ -30,6 +30,10 @@
             android:name=".ActualClass"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ReviewHistory2"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -45,6 +45,7 @@ public class ActualClass extends AppCompatActivity {
     ActionBar mActionBar;
 
     static Button submitButton;
+    private Button goHome;
     static Button viewPastResults;
     static Button newQuiz;
 
@@ -87,7 +88,7 @@ public class ActualClass extends AppCompatActivity {
         CapitalQuizDBHelper helper = CapitalQuizDBHelper.getInstance(this);
 
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 6);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 7);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -110,7 +111,7 @@ public class ActualClass extends AppCompatActivity {
                 }
 
                 Random rand = new Random();
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 7; i++) {
                     int index = rand.nextInt(list.size());
                     if (index != 0) {
                         quizList.add(fullQuestionsList.get(list.get(index)));
@@ -143,8 +144,33 @@ public class ActualClass extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                // mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(position));
-                if(position== mViewPager.getAdapter().getCount() - 1) {
+                if(position == mViewPager.getAdapter().getCount() - 1) {
+
+
                     setContentView(R.layout.results_page);
+
+                    TextView resultText = (TextView) findViewById(R.id.textView3);
+                    TextView dateText = (TextView) findViewById(R.id.textView4);
+                    resultText.setText(currentQuiz.getScore() + " out of 6");
+
+
+                    Date date = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+                    String strDate = formatter.format(date);
+                    currentQuiz.setDate(strDate);
+
+                    new QuizDBWriterTask().execute( currentQuiz );
+                    //currentQuiz.setScore(0);
+                    dateText.setText(strDate);
+
+                    goHome = (Button) findViewById(R.id.button);
+                    goHome.setOnClickListener( new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            finish();
+                        }
+                    });
                 }
 
             }
@@ -158,7 +184,7 @@ public class ActualClass extends AppCompatActivity {
             }
 
             public void gradeQuestion(int position) {
-                if(position != 5) {
+                if(position != 6) {
 
                     correctAnswer = (String) rbSelected.getText();
                     correctAnswer = correctAnswer.substring(3);
@@ -197,40 +223,42 @@ public class ActualClass extends AppCompatActivity {
         @Override
         public void onClick(View v)
         {
-            if(v == submitButton) {
-                correctAnswer = (String) rbSelected.getText();
-                correctAnswer = correctAnswer.substring(3);
-                correct = quizList.get(5).gradeQuestion(correctAnswer);
-                Log.d(DEBUG_TAG, "Correct?: " + correct);
-                if(correct) {
-                    currentQuiz.incrementScore();
-                }
-
-                setContentView(R.layout.results_page);
-                newQuiz = (Button) findViewById(R.id.button);
-
-                newQuiz.setOnClickListener(new ActualClass.ButtonClickListener());
-                viewPastResults.setOnClickListener(new ActualClass.ButtonClickListener());
-
-                TextView resultText = (TextView) findViewById(R.id.textView3);
-                TextView dateText = (TextView) findViewById(R.id.textView4);
-
-                //need to get the result from the database and then set this text box to the appropriate value
-                resultText.setText(currentQuiz.getScore() + " out of 6");
-                //should store this in the database or replace this with getting this from the database
-                Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-                String strDate = formatter.format(date);
-                currentQuiz.setDate(strDate);
-
-                new QuizDBWriterTask().execute( currentQuiz );
-                dateText.setText(strDate);
-            }
-            //if the new quiz button is pushed on the results page
-            else if (v == newQuiz) {
-                Intent intent = new Intent(v.getContext(), ActualClass.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(v.getContext(), ActualClass.class);
+            startActivity(intent);
+//            if(v == submitButton) {
+//                correctAnswer = (String) rbSelected.getText();
+//                correctAnswer = correctAnswer.substring(3);
+//                correct = quizList.get(5).gradeQuestion(correctAnswer);
+//                Log.d(DEBUG_TAG, "Correct?: " + correct);
+//                if(correct) {
+//                    currentQuiz.incrementScore();
+//                }
+//
+//                setContentView(R.layout.results_page);
+//                newQuiz = (Button) findViewById(R.id.button);
+//
+//                newQuiz.setOnClickListener(new ActualClass.ButtonClickListener());
+//                viewPastResults.setOnClickListener(new ActualClass.ButtonClickListener());
+//
+//                TextView resultText = (TextView) findViewById(R.id.textView3);
+//                TextView dateText = (TextView) findViewById(R.id.textView4);
+//
+//                //need to get the result from the database and then set this text box to the appropriate value
+//                resultText.setText(currentQuiz.getScore() + " out of 6");
+//                //should store this in the database or replace this with getting this from the database
+//                Date date = new Date();
+//                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+//                String strDate = formatter.format(date);
+//                currentQuiz.setDate(strDate);
+//
+//                new QuizDBWriterTask().execute( currentQuiz );
+//                dateText.setText(strDate);
+//            }
+//            //if the new quiz button is pushed on the results page
+//            else if (v == newQuiz) {
+//                Intent intent = new Intent(v.getContext(), ActualClass.class);
+//                startActivity(intent);
+//            }
 
         }
     }
@@ -243,6 +271,7 @@ public class ActualClass extends AppCompatActivity {
         @Override
         protected QuizVariables doInBackground( QuizVariables... quiz ) {
             quizQuestionsData.storeQuiz( quiz[0] );
+            Log.d(DEBUG_TAG, String.valueOf(quiz[0]));
             return quiz[0];
         }
     }

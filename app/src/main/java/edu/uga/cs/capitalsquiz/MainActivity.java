@@ -69,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(switchActivityIntent);
                 break;
             case R.id.review_history:
-                  fragment = new ReviewHistory2();
-                FragmentManager fragManager = getSupportFragmentManager();
-                fragManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
-//                Intent switchActivityIntent = new Intent(this, ReviewHistory.class);
-//                startActivity(switchActivityIntent);
+                  //fragment = new ReviewHistory2();
+//                FragmentManager fragManager = getSupportFragmentManager();
+//                fragManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+                Intent move = new Intent(this, ReviewHistory2.class);
+                startActivity(move);
                 break;
             case R.id.help:
                 fragment = new HelpScreen();

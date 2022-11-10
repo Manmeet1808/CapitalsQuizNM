@@ -445,7 +445,7 @@ public class ActualClass extends AppCompatActivity {
                 Log.d(DEBUG_TAG, "Options: " + options);
             }
 
-            quest = "What is the capital of " + quizList.get(questionNum - 1).getState();
+            quest = "What is the capital of \n" + quizList.get(questionNum - 1).getState() + "?";
 
             opt1 = options.get(0);
             opt2 = options.get(1);

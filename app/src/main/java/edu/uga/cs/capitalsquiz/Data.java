@@ -118,7 +118,7 @@ public class Data {
         questions.add(question26);
         Questions question27 = new Questions("Nebraska", "Lincoln", "Omaha", "Bellevue");
         questions.add(question27);
-        Questions question28 = new Questions("Nevada", "Carson City", "las Vegas", "Henderson");
+        Questions question28 = new Questions("Nevada", "Carson City", "Las Vegas", "Henderson");
         questions.add(question28);
         Questions question29 = new Questions("New Hampshire", "Concord", "Manchester", "Nashua");
         questions.add(question29);

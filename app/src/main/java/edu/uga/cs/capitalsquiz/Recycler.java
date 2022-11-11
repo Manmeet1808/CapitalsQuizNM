@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -27,13 +26,13 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
 
     class QuizHolder extends RecyclerView.ViewHolder {
 
-        TextView date;
-        TextView score;
+        TextView d;
+        TextView s;
 
         public QuizHolder(View itemView ) {
             super(itemView);
-            date = (TextView) itemView.findViewById( R.id.date );
-            score = (TextView) itemView.findViewById( R.id.score );
+            d = (TextView) itemView.findViewById( R.id.Textdate);
+            s = (TextView) itemView.findViewById( R.id.Textscore);
         }
     }
 
@@ -50,8 +49,9 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
 
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
 
-        holder.score.setText( "" + quiz.getScore() );
-        holder.date.setText( quiz.getDate() );
+        Log.d(DEBUG_TAG, "" + quiz.getScore());
+        holder.s.setText( "" + quiz.getScore() );
+        holder.d.setText( quiz.getDate() );
     }
 
     @Override

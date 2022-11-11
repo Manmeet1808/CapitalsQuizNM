@@ -180,9 +180,10 @@ public class ActualClass extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-                            Intent move = new Intent(view.getContext(), ReviewHistory2.class);
-                            move.putExtra("FinalScores", scores);
-                            startActivity(move);
+                            finish();
+//                            Intent move = new Intent(view.getContext(), ReviewHistory2.class);
+//                            move.putExtra("FinalScores", scores);
+//                            startActivity(move);
                         }
                     });
                 }
@@ -237,8 +238,10 @@ public class ActualClass extends AppCompatActivity {
         @Override
         public void onClick(View v)
         {
-            Intent intent = new Intent(v.getContext(), ActualClass.class);
+            Intent intent = new Intent(v.getContext(), ReviewHistory2.class);
             startActivity(intent);
+//            Intent intent = new Intent(v.getContext(), ActualClass.class);
+//            startActivity(intent);
 //            if(v == submitButton) {
 //                correctAnswer = (String) rbSelected.getText();
 //                correctAnswer = correctAnswer.substring(3);

@@ -53,19 +53,24 @@ public class ReviewHistory2 extends AppCompatActivity {
         @Override
         protected List<QuizVariables> doInBackground( Void... params ) {
             //ArrayList<Integer> myList = (ArrayList<Integer>) getIntent().getSerializableExtra("FinalScores");
-
+            QuizVariables q;
             quizData.open();
             quizList = quizData.retrieveAllQuizzes();
+            //q = new QuizVariables(6, "09/10/2022");
+            //quizList.add(q);
             Log.d(DEBUG_TAG, "Size of Quiz: " + quizList.size());
+            //Log.d(DEBUG_TAG, "HERE HERE: " + q.getScore());
 
             return quizList;
         }
 
         @Override
         protected void onPostExecute( List<QuizVariables> quizObjectList ) {
-            super.onPostExecute(quizList);
-            recyclerAdapter = new Recycler( quizList );
+            super.onPostExecute(quizObjectList);
+            recyclerAdapter = new Recycler( quizObjectList );
+            //recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter( recyclerAdapter );
+
         }
     }
 

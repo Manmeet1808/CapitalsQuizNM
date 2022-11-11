@@ -215,6 +215,8 @@ public class Data {
 //            quizzes.add( quiz );
 //        }
 
+
+
         try {
             cursor = db.query( CapitalQuizDBHelper.TABLE_QUIZZES, allQuizColumns,
                     null, null, null, null, null );

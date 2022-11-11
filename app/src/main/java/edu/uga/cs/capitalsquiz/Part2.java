@@ -49,6 +49,7 @@ public class Part2 extends Fragment {
         return fragment;
     }
 
+    //public constructor
     public Part2() {
     }
 
@@ -76,64 +77,11 @@ public class Part2 extends Fragment {
         //initialize();
     }
 
-//    public void initialize() {
-//        submitButton = (Button) rootView.findViewById(R.id.button3);
-//        question = (TextView) rootView.findViewById(R.id.textView1);
-//        option1 = (RadioButton) rootView.findViewById(R.id.radioButton);
-//        option2 = (RadioButton) rootView.findViewById(R.id.radioButton2);
-//        option3 = (RadioButton) rootView.findViewById(R.id.radioButton3);
-//        radioGroup = rootView.findViewById(R.id.radioGroup);
-//
-//
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                rbSelected = rootView.findViewById(checkedId);
-//            }
-//        });
-//    }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
-
-
-//            if(savedInstanceState == null) {
-//                ArrayList<Integer> intList = new ArrayList<>(3);
-//                for (int i = 0; i <= 2; i++) {
-//                    intList.add(i);
-//                }
-//
-//                options = new ArrayList<String>();
-//
-//                options.add(quizList.get(questionNum - 1).getCapital());
-//                options.add(quizList.get(questionNum - 1).getCity1());
-//                options.add(quizList.get(questionNum - 1).getCity2());
-//
-//                Collections.shuffle(options);
-//            }
-//            else {
-//                options = new ArrayList<String>();
-//
-//                options.add(quizList.get(questionNum - 1).getCapital());
-//                options.add(quizList.get(questionNum - 1).getCity1());
-//                options.add(quizList.get(questionNum - 1).getCity2());
-//
-//                Collections.shuffle(options);
-//
-//
-//            }
-//
-//            quest = "What is the capital of " + quizList.get(questionNum - 1).getState();
-//
-//            opt1 = options.get(0);
-//            opt2 = options.get(1);
-//            opt3 = options.get(2);
-//
-//            //((AttemptQuiz) getActivity()).loadView(question, quest, option1, opt1, option2, opt2, option3, opt3);
-        }
+    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {

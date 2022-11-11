@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * This class creates the necessary tables in the database for the quiz.
+ * It also populates the CSV file with each state, their capital city, and two other
+ * popular cities within that state.
+ */
 
 public class CapitalQuizDBHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG = "CapitalQuizDBHelper";
@@ -63,7 +68,6 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         this.myContext = context;
     }
 
-    //
     public static synchronized CapitalQuizDBHelper getInstance( Context context ) {
         if( helperInstance == null ) {
             helperInstance = new CapitalQuizDBHelper( context.getApplicationContext() );
@@ -113,7 +117,6 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
                     Log.d( DEBUG_TAG, "Line: " + nextLine );
                     val++;
 
-
                }
                 Log.d(DEBUG_TAG, "How many states: " + val );
                 am.close();
@@ -123,29 +126,6 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
                 Log.e( DEBUG_TAG, e.toString() );
             }
 
-//            try {
-//                AssetManager am = myContext.getAssets();
-//                InputStream in_s = am.open("quizData.csv");
-//
-//                // read the CSV data
-//                CSVReader reader = new CSVReader( new InputStreamReader( in_s ) );
-//                String [] nextLine;
-//                while( ( nextLine = reader.readNext() ) != null ) {
-//                    ContentValues values = new ContentValues();
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE, nextLine[0]);
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL, nextLine[1] );
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1, nextLine[2] );
-//                    values.put( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2, nextLine[3] );
-//
-//                    long id = sqLiteDatabases[0].insert(CapitalQuizDBHelper.TABLE_CITIES, null, values );
-//                    Log.d(DEBUG_TAG, "Id Inserted: " + id);
-//
-//                    Log.d( DEBUG_TAG, "Line: " + nextLine );
-//                    return sqLiteDatabases[0];
-//                }
-//            } catch (Exception e) {
-//                Log.e( DEBUG_TAG, e.toString() );
-//            }
             return null;
         }
     }
@@ -159,6 +139,5 @@ public class CapitalQuizDBHelper extends SQLiteOpenHelper {
         onCreate( db );
         Log.d( DEBUG_TAG, "Table " + TABLE_CITIES + " upgraded" );
     }
-
 
 }

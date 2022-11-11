@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 /**
- * This class is the adapter used to display the previous quizzes.
+ * This class is the adapter used to display the previous quizzes the user had taken.
  */
 
 public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
@@ -26,8 +26,7 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
 
     class QuizHolder extends RecyclerView.ViewHolder {
 
-        TextView d;
-        TextView s;
+        TextView d; TextView s;
 
         public QuizHolder(View itemView ) {
             super(itemView);
@@ -46,9 +45,7 @@ public class Recycler extends RecyclerView.Adapter<Recycler.QuizHolder> {
     @Override
     public void onBindViewHolder( QuizHolder holder, int position ) {
         QuizVariables quiz = quizList.get( position );
-
         Log.d( DEBUG_TAG, "onBindViewHolder: " + quiz );
-
         Log.d(DEBUG_TAG, "" + quiz.getScore());
         holder.s.setText( "" + quiz.getScore() );
         holder.d.setText( quiz.getDate() );

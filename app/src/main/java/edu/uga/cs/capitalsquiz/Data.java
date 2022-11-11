@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Interacts with DBHelper and meant to associate with quiz table
+ * This class interacts with DBHelper and is meant to associate with the quiz table
  */
 public class Data {
 
@@ -60,9 +60,6 @@ public class Data {
     public List<Questions> retrieveAllQuizQuestions() {
         ArrayList<Questions> questions = new ArrayList<>();
         Cursor cursor = null;
-        //Questions question;
-
-       // long id = cursor.getColumnIndex( CapitalQuizDBHelper.CAPITALS_COLUMN_ID );
 
         Questions question1 = new Questions("Alabama", "Montgomery", "Huntsville", "Birmingham");
         questions.add(question1);
@@ -165,56 +162,16 @@ public class Data {
         Questions question50 = new Questions("Wyoming", "Cheyenne", "Casper", "Gillette");
         questions.add(question50);
 
-
-//        try {
-//            cursor = db.query( CapitalQuizDBHelper.TABLE_CITIES, allQuestionColumns,
-//                    null, null, null, null, null );
-//            Log.d( DEBUG_TAG, "HELLLOOO ");
-//
-//           // if( cursor.getCount() > 1 ) {
-//                while( cursor.moveToNext() ) {
-//                    long id = cursor.getColumnIndex( CapitalQuizDBHelper.CAPITALS_COLUMN_ID );
-//                    String state = cursor.getString( cursor.getColumnIndexOrThrow( CapitalQuizDBHelper.CAPITALS_COLUMN_STATE ) );
-//                    String capital = cursor.getString( cursor.getColumnIndexOrThrow( CapitalQuizDBHelper.CAPITALS_COLUMN_CAPITAL ) );
-//                    String city1 = cursor.getString( cursor.getColumnIndexOrThrow( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY1 ) );
-//                    String city2 = cursor.getString( cursor.getColumnIndexOrThrow( CapitalQuizDBHelper.CAPITALS_COLUMN_CITY2 ) );
-//
-//                    question = new Questions(state, capital, city1, city2);
-//                    question.setId( id );
-//                    questions.add( question );
-//                    Log.d( DEBUG_TAG, "Retrieved Question: " + question );
-//                }
-//           // }
-//            Log.d( DEBUG_TAG, "Number of records from DB: " + cursor.getCount() );
-//        }
-//        catch( Exception e ){
-//            Log.d( DEBUG_TAG, "Exception caught: " + e );
-//        }
-//        finally{
-//            // close the cursor
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
         // return a list of retrieved questions
         return questions;
     }
 
     //retrieve all the Quizzes and return them as a list
     public List<QuizVariables> retrieveAllQuizzes() {
-//        ActualClass list = new ActualClass();
-//        List<Integer> s = list.getResult();
-//        List<String> d = list.getTime();
-//        int size = s.size();
+
         ArrayList<QuizVariables> quizzes = new ArrayList<>();
         Cursor cursor = null;
         QuizVariables quiz;
-
-//        for (int i = 0; i < size; i++) {
-//            quiz = new QuizVariables(s.get(i),  "12/30/9999");
-//            quizzes.add( quiz );
-//        }
-
 
 
         try {

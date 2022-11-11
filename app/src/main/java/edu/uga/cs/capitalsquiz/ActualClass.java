@@ -44,6 +44,7 @@ public class ActualClass extends AppCompatActivity {
     public ArrayList<Integer> scores = new ArrayList<Integer>();
     public ArrayList<String> dates = new ArrayList<String>();
 
+
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     ActionBar mActionBar;
@@ -102,8 +103,6 @@ public class ActualClass extends AppCompatActivity {
 
             if(savedInstanceState == null) {
 
-                //mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(0));
-
                 quizQuestionsData = new Data(this);
                 quizQuestionsData.open();
                 fullQuestionsList = quizQuestionsData.retrieveAllQuizQuestions();
@@ -115,6 +114,7 @@ public class ActualClass extends AppCompatActivity {
                     list.add(i);
                 }
 
+                //randomly selects six states to use for the quiz questions
                 Random rand = new Random();
                 for (int i = 0; i < 7; i++) {
                     int index = rand.nextInt(list.size());
@@ -128,6 +128,7 @@ public class ActualClass extends AppCompatActivity {
                 createQuiz(quizList);
             }
             else {
+                //saves the current state in case the app is paused
                 quizQuestionsData.open();
                 quizList = savedInstanceState.<Questions>getParcelableArrayList(QUIZ_LIST);
                 currentQuiz.setScore(savedInstanceState.getInt(SCORE));
@@ -144,15 +145,12 @@ public class ActualClass extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 pos=position;
-
             }
 
             @Override
             public void onPageSelected(int position) {
-                    gradeQuestion(pos);
-               // mActionBar.setTitle(mSectionsPagerAdapter.getPageTitle(position));
+                gradeQuestion(pos);
                 if(position == mViewPager.getAdapter().getCount() - 1) {
-
 
                     setContentView(R.layout.results_page);
 
@@ -160,30 +158,24 @@ public class ActualClass extends AppCompatActivity {
                     TextView dateText = (TextView) findViewById(R.id.textView4);
                     resultText.setText(currentQuiz.getScore() + " out of 6");
 
-
-
-
                     Date date = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
                     String strDate = formatter.format(date);
                     currentQuiz.setDate(strDate);
-                    
+
                     scores.add(currentQuiz.getScore());
                     dates.add(strDate);
 
                     new QuizDBWriterTask().execute( currentQuiz );
-                    //currentQuiz.setScore(0);
                     dateText.setText(strDate);
 
+                    //sends the user back to the home page when the button is clicked
                     goHome = (Button) findViewById(R.id.button);
                     goHome.setOnClickListener( new View.OnClickListener() {
 
                         @Override
                         public void onClick(View view) {
                             finish();
-//                            Intent move = new Intent(view.getContext(), ReviewHistory2.class);
-//                            move.putExtra("FinalScores", scores);
-//                            startActivity(move);
                         }
                     });
                 }
@@ -198,6 +190,7 @@ public class ActualClass extends AppCompatActivity {
                 }
             }
 
+            //checks if the user's answers are correct
             public void gradeQuestion(int position) {
                 if(position != 6) {
 
@@ -215,9 +208,7 @@ public class ActualClass extends AppCompatActivity {
                 else if(position == 5) {
                     Log.d(DEBUG_TAG, "Store Quiz");
 
-                    //show submit button : button onclick stores final q answer, quiz results, launches results screen
-                    //this makes the button visible on the last page!
-
+                    //makes the submit button visible on the last page
                     submitButton.setVisibility(View.VISIBLE);
                     submitButton.setOnClickListener(new ActualClass.ButtonClickListener() {
 
@@ -226,57 +217,16 @@ public class ActualClass extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     /**
      * Listens for the button to be clicked and calls onClick when button is clicked
      */
-    private class ButtonClickListener implements View.OnClickListener
-    {
+    private class ButtonClickListener implements View.OnClickListener {
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), ReviewHistory2.class);
             startActivity(intent);
-//            Intent intent = new Intent(v.getContext(), ActualClass.class);
-//            startActivity(intent);
-//            if(v == submitButton) {
-//                correctAnswer = (String) rbSelected.getText();
-//                correctAnswer = correctAnswer.substring(3);
-//                correct = quizList.get(5).gradeQuestion(correctAnswer);
-//                Log.d(DEBUG_TAG, "Correct?: " + correct);
-//                if(correct) {
-//                    currentQuiz.incrementScore();
-//                }
-//
-//                setContentView(R.layout.results_page);
-//                newQuiz = (Button) findViewById(R.id.button);
-//
-//                newQuiz.setOnClickListener(new ActualClass.ButtonClickListener());
-//                viewPastResults.setOnClickListener(new ActualClass.ButtonClickListener());
-//
-//                TextView resultText = (TextView) findViewById(R.id.textView3);
-//                TextView dateText = (TextView) findViewById(R.id.textView4);
-//
-//                //need to get the result from the database and then set this text box to the appropriate value
-//                resultText.setText(currentQuiz.getScore() + " out of 6");
-//                //should store this in the database or replace this with getting this from the database
-//                Date date = new Date();
-//                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-//                String strDate = formatter.format(date);
-//                currentQuiz.setDate(strDate);
-//
-//                new QuizDBWriterTask().execute( currentQuiz );
-//                dateText.setText(strDate);
-//            }
-//            //if the new quiz button is pushed on the results page
-//            else if (v == newQuiz) {
-//                Intent intent = new Intent(v.getContext(), ActualClass.class);
-//                startActivity(intent);
-//            }
-
         }
     }
 
@@ -312,6 +262,7 @@ public class ActualClass extends AppCompatActivity {
         return currentQuiz;
     }
 
+    //loads the question answers for the quiz question being displayed
     public void loadView(TextView question, String quest, RadioButton option1, String opt1, RadioButton option2,
                          String opt2, RadioButton option3, String opt3) {
         question.setText(quest);
@@ -399,6 +350,7 @@ public class ActualClass extends AppCompatActivity {
             initialize();
         }
 
+        //initializes the variables for the UI controls on the quiz
         public void initialize() {
             submitButton = (Button) rootView.findViewById(R.id.button3);
             question = (TextView) rootView.findViewById(R.id.textView1);
@@ -448,6 +400,7 @@ public class ActualClass extends AppCompatActivity {
                 Log.d(DEBUG_TAG, "Options: " + options);
             }
 
+            //displayes the question to be asked on each page
             quest = "What is the capital of \n" + quizList.get(questionNum - 1).getState() + "?";
 
             opt1 = options.get(0);

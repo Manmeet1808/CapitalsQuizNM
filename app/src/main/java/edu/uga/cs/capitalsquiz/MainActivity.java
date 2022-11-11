@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 /**
- * The main activity class.  It just sets listeners for the two buttons.
+ * The main activity class.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         // assigning ID of the toolbar to a variable
         toolbar = findViewById( R.id.toolbar );
-
-        // using toolbar as ActionBar
-        //setSupportActionBar( toolbar );
 
         // Find our drawer view
         drawerLayout = (DrawerLayout) findViewById( R.id.drawer_layout );
@@ -58,27 +55,24 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    //Lists the nav drawer options and what would happen when each was clicked
     public void selectDrawerItem( MenuItem menuItem ) {
         Fragment fragment = null;
 
         // Create a new fragment based on the used selection in the nav drawer
         switch( menuItem.getItemId() ) {
             case R.id.take_quiz:
-                //fragment = new AddJobLeadFragment();
                 Intent switchActivityIntent = new Intent(this, ActualClass.class);
                 startActivity(switchActivityIntent);
                 break;
             case R.id.review_history:
-                  //fragment = new ReviewHistory2();
-//                FragmentManager fragManager = getSupportFragmentManager();
-//                fragManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
                 Intent move = new Intent(this, ReviewHistory2.class);
                 startActivity(move);
                 break;
             case R.id.help:
                 fragment = new HelpScreen();
                 FragmentManager fragmentManager = getSupportFragmentManager();
-               fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
+                fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
                 break;
             case R.id.close:
                 finish();
@@ -87,20 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
         }
 
-        // Set up the fragment by replacing any existing fragment in the main activity
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace( R.id.fragmentContainerView, fragment).addToBackStack("main screen" ).commit();
-
-
-        /*
-        // this is included here as a possible future modification
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked( true );
-        // Set action bar title
-        setTitle( menuItem.getTitle());
-         */
-
-        // Close the navigation drawer
         drawerLayout.closeDrawers();
     }
 
